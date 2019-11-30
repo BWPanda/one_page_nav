@@ -1,17 +1,15 @@
-The Name of My Project
-======================
+One-Page Navigation
+===================
 
-Foo project enables you to do bar. The first paragraph of this file should be
-kept short as it will be used as the project summary on backdropcms.org. Aim for
-about 240 characters (three lines at 80 characters each).
+The One-Page Navigation module enhances one-page sites by adding smooth
+scrolling (when you click a hash/fragment link (`example.com/#about`), the page
+will scroll smoothly up/down to bring the linked element into view) and smart
+navigation (as you scroll up/down the page, hash/fragment links become active as
+each linked element comes into view).
 
-All lines in this file should be no more than 80 characters long for legibility,
-unless including a URL or example that requires the line not wrap. (The first
-line of this paragraph is 80 characters for reference.)
-
-Detail in READMEs should be limited to the minimum required for installation and
-getting started. More detailed documentation should be moved to a GitHub wiki
-page: https://github.com/backdrop-contrib/setup/wiki/Documentation.
+You will need to create your own hash/fragment links, and link them to elements
+on the page. Then tell One-Page Navigation which element holds your links and
+it'll do the rest!
 
 Installation
 ------------
@@ -19,39 +17,29 @@ Installation
 - Install this module using the official Backdrop CMS instructions at
   https://backdropcms.org/guide/modules.
 
-- Visit the configuration page under Administration > Configuration > Category >
-  Foo (admin/config/category/foo) and enter the required information.
-
-- Any additional steps.
-
-Documentation
--------------
-
-Additional documentation is located in the Wiki:
-https://github.com/backdrop-contrib/foo-project/wiki/Documentation.
+- Visit the configuration page under Administration > Configuration > User
+  Interface > One-Page Navigation (admin/config/user-interface/one-page-nav) and
+  configure the settings (a blank Selector field disables the functionality).
 
 Issues
 ------
 
 Bugs and Feature requests should be reported in the Issue Queue:
-https://github.com/backdrop-contrib/foo-project/issues.
+https://github.com/backdrop-contrib/one_page_nav/issues.
 
 Current Maintainers
 -------------------
 
-- [John Smith](https://github.com/username)
-- [Jane Smith](https://github.com/username)
+- [Peter Anderson](https://github.com/BWPanda)
 
 Credits
 -------
 
-- Ported to Backdrop CMS by [Betty Boop](https://github.com/username).
-- Originally written for Drupal by [Bob Brown](https://github.com/username).
-- Based on the [MagicalCode project](https://github.com/example).
-- Sponsored by [TechNoCorp](https://example.com).
+- Created for Backdrop CMS by [Peter Anderson](https://github.com/BWPanda).
+- Based on the [jQuery-One-Page-Nav](https://davist11.github.io/jQuery-One-Page-Nav/) library.
 
 License
 -------
 
-This project is GPL v2 software. 
+This project is GPL v2 software.
 See the LICENSE.txt file in this directory for complete text.

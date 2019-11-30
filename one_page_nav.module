@@ -1,0 +1,105 @@
+<?php
+/**
+ * @file
+ * Enhances one-page sites with smooth scrolling and smart navigation.
+ */
+
+/**
+ * Implements hook_config_info().
+ */
+function one_page_nav_config_info() {
+  return array(
+    'one_page_nav.settings' => array(
+      'label' => t('One-page navigation settings'),
+      'group' => t('Configuration'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_init().
+ */
+function one_page_nav_init() {
+  $config = config('one_page_nav.settings');
+
+  if (!empty($config->get('selector'))) {
+    // Add JS.
+    backdrop_add_js(backdrop_get_path('module', 'one_page_nav') . '/js/jquery.nav.js');
+    backdrop_add_js(backdrop_get_path('module', 'one_page_nav') . '/js/one_page_nav.js');
+
+    // Add settings.
+    $settings = array(
+      'onePageNav' => array(
+        'currentClass' => 'active',
+        'selector' => $config->get('selector'),
+        'changeHash' => $config->get('changeHash'),
+        'scrollSpeed' => (int) $config->get('scrollSpeed'),
+        'scrollThreshold' => $config->get('scrollThreshold') / 100,
+        'filter' => $config->get('filter'),
+      ),
+    );
+    backdrop_add_js($settings, 'setting');
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function one_page_nav_menu() {
+  return array(
+    'admin/config/user-interface/one-page-nav' => array(
+      'title' => 'One-page navigation',
+      'description' => 'Configure one-page navigation settings.',
+      'page callback' => 'backdrop_get_form',
+      'page arguments' => array('one_page_nav_config_form'),
+      'access arguments' => array('administer site configuration'),
+    ),
+  );
+}
+
+/**
+ * Configuration form.
+ */
+function one_page_nav_config_form($form, &$form_state) {
+  $config = config('one_page_nav.settings');
+  $form['#config'] = 'one_page_nav.settings';
+
+  $form['selector'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Selector'),
+    '#description' => t("The jQuery selector of the element containing the navigation links (e.g. 'ul.menu')."),
+    '#default_value' => $config->get('selector'),
+  );
+  $form['changeHash'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Change hash'),
+    '#description' => t("Add and change the hash (fragment) in the URL when clicking navigation links. Enabling this setting allows bookmarking specific links and navigating visited links using the browser's back/forward buttons."),
+    '#default_value' => $config->get('changeHash'),
+  );
+  $form['scrollSpeed'] = array(
+    '#type' => 'number',
+    '#title' => t('Scroll speed'),
+    '#description' => t("The speed (in milliseconds) at which the page scrolls when clicking navigation links."),
+    '#default_value' => $config->get('scrollSpeed'),
+    '#min' => 0,
+    '#max' => 99999,
+    '#field_suffix' => t('ms'),
+  );
+  $form['scrollThreshold'] = array(
+    '#type' => 'number',
+    '#title' => t('Scroll threshold'),
+    '#description' => t("The distance (as a percentage of the screen height) a section is from the top of the screen when it becomes active."),
+    '#default_value' => $config->get('scrollThreshold'),
+    '#min' => 0,
+    '#max' => 100,
+    '#field_suffix' => t('%'),
+  );
+  $form['filter'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Filter'),
+    '#description' => t("The jQuery selector of the navigation links to affect. Leave blank to affect all links within the Selector specified above. To prevent links being affected, use ':not()' (e.g. ':not(.external)')."),
+    '#default_value' => $config->get('filter'),
+  );
+
+  return system_settings_form($form);
+}

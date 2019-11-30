@@ -1,0 +1,9 @@
+type = module
+name = One-Page Navigation
+description = Enhances one-page sites with smooth scrolling and smart navigation.
+backdrop = 1.x
+configure = admin/config/user-interface/one-page-nav
+package = User interface
+tags[] = Menus
+tags[] = Site Navigation
+tags[] = Theme Enhancements
